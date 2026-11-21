@@ -162,3 +162,17 @@ def size(width=1.0, ratio=None, height=None, wide=False):
 def textwidth_pt():
     """Width of size(1.0) in TeX points, to compare with \\the\\linewidth in the paper."""
     return size(1.0)[0] * PT_PER_INCH
+
+
+def current_version():
+    """The MyPaper version set by the last use(), as a string ("2", "8", "P", ...)."""
+    return _current["version"]
+
+
+def name(base, ext="pdf"):
+    """File name with the MyPaper version in it: name("oscillator") -> "oscillator-v8.pdf".
+
+    In the paper, \\myfigure{oscillator-v\\version}{..}{} then picks the figure made for
+    the version that paper.tex is set to.
+    """
+    return f"{base}-v{_current['version']}.{ext}"

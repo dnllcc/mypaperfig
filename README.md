@@ -53,6 +53,32 @@ Options:
 | `mpf.size(0.5, ratio=1)` | half width, square |
 | `mpf.size(1.0, wide=True)` | two-column versions (7, 9): across both columns |
 
+## The version in the file name
+
+`mpf.name("oscillator")` gives `oscillator-v8.pdf` after `mpf.use(version=8)`, so figures
+made for different versions sit side by side instead of overwriting each other:
+
+```python
+fig.savefig(FIGURES / mpf.name("oscillator"))
+```
+
+In the paper, let `\version` choose the file, so switching the version line in
+`paper.tex` also switches the figures:
+
+```latex
+\myfigure{oscillator-v\version}{Damped oscillator, fig:osc}{}
+```
+
+To make the figures for several versions in one run, loop over them:
+
+```python
+for v in [2, 8]:
+    mpf.use(version=v)
+    fig_oscillator()
+```
+
+`mpf.current_version()` returns the version set by the last `use()`.
+
 ## Versions
 
 | Version | Layout | Width | Size | Font |
